@@ -25,7 +25,7 @@
             <textarea matInput rows="5" [(ngModel)]="comment" name="comment"  class="post-detail__comment-form_input"></textarea>
         </mat-form-field>
         <button mat-raised-button color="accent"
-            (click)="commentForm.valid && onSubmitComment() && commentForm.reset()">
+            (click)="commentForm.valid && onSubmitComment()">
             Submit comment
         </button>
     </form>

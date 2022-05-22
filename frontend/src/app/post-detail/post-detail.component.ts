@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs';
+import { SnackbarService } from '../core/snackbar.service';
 import { PostsService } from '../posts-list/posts.service';
 import { Post, Comment } from '../shared/interfaces';
 
@@ -14,11 +15,13 @@ export class PostDetailComponent implements OnInit {
   post!: Post;
   email!: string;
   comment!: string;
+  @ViewChild('commentForm') commentForm!: HTMLFormElement;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private postsSvc: PostsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private snackbarSvc: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -39,8 +42,10 @@ export class PostDetailComponent implements OnInit {
     this.postsSvc.createPostComment(String(this.post.id), commentData)
       .subscribe({
         next: comment => {
+          this.snackbarSvc.showBasicMessage('Comment successfully submited');
           this.post.comments.push(comment);
           this.cdr.detectChanges();
+          this.commentForm.reset();
         }
       });
   }

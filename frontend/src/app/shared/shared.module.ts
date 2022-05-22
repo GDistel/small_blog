@@ -9,7 +9,7 @@ import { CommentComponent } from './comment/comment.component';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const IMPORT_MATERIAL_MODULES = [
   MatButtonModule,
@@ -23,7 +23,8 @@ const EXPORT_MATERIAL_MODULES = [
   MatIconModule,
   MatListModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

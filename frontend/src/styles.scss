@@ -3,6 +3,8 @@
 html,
 body {
     height: 100%;
+    --success-color: green;
+    --error-color: red;
 }
 
 body {
@@ -10,4 +12,14 @@ body {
     margin: 0 auto;
     max-width: 640px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.primary-background {
+    color: white;
+    background-color: var(--success-color);
+}
+
+.error-background {
+    color: white;
+    background-color: var(--error-color);
 }
