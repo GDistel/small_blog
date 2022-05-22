@@ -7,6 +7,9 @@ import { PostCardComponent } from './post-card/post-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { CommentComponent } from './comment/comment.component';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 const IMPORT_MATERIAL_MODULES = [
   MatButtonModule,
@@ -18,7 +21,9 @@ const EXPORT_MATERIAL_MODULES = [
   MatToolbarModule,
   MatButtonModule,
   MatIconModule,
-  MatListModule
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule
 ];
 
 @NgModule({

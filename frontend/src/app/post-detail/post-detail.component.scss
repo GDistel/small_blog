@@ -31,4 +31,23 @@
         display: block;
         margin: 16px;
     }
+
+    &__comment-form {
+        background-color: #424242;
+        padding: 16px;
+        margin: 0 16px 16px 16px;
+
+        &_title {
+            margin: 0;
+            padding: 16px;
+        }
+
+        &_field {
+            display: block;
+        }
+
+        &_input {
+            color: white;
+        }
+    }
 }
