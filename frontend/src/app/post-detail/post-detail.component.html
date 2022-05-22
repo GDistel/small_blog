@@ -1,0 +1,14 @@
+<ng-container *ngIf="post; else loading">
+    <header class="post-detail__header">
+        <button class="header__back-button" mat-icon-button routerLink="/">
+            <mat-icon>arrow_back_ios_new</mat-icon>
+        </button>
+        <h1 class="header__title">{{ post.title }}</h1>
+    </header>
+    <img src="{{ post.imageUrl }}" alt="Post image" class="post-detail__image">
+    <p class="post-detail__content">{{ post.content }}</p>
+</ng-container>
+
+<ng-template #loading>
+    ...loading
+</ng-template>

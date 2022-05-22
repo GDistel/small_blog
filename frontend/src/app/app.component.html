@@ -1,7 +1,14 @@
-<mat-toolbar>
-  <span>Small Blog</span>
-  <button mat-icon-button>
-    <mat-icon>favorite</mat-icon>
-  </button>
+<mat-toolbar class="nav">
+  <span>
+    <mat-icon inline>star</mat-icon>
+    Small Blog
+    <mat-icon inline>star</mat-icon>
+  </span>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
+<footer class="footer">
+  <p class="contact-data">Author: Germán Distel</p>
+  <p class="contact-data"><a href="mailto:germandistel@gmail.com">germandistel@gmail.com</a></p>
+</footer>

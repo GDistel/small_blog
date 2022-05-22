@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./posts-list/posts-list.module').then(m => m.PostsListModule)
   },
   {
+    path: 'post-detail/:id',
+    loadChildren: () => import('./post-detail/post-detail.module').then(m => m.PostDetailModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'posts-list'

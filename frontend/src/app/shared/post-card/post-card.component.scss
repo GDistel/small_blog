@@ -1,6 +1,9 @@
 .post-card {
     &__container {
         max-width: 320px;
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     &__image {

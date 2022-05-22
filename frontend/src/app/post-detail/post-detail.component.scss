@@ -1,0 +1,17 @@
+.post-detail {
+    &__header {
+        padding: 16px 8px;
+        display: flex;
+        align-items: center;
+        .header__title {
+            margin: 0;
+        }
+    }
+    &__image {
+        display: block;
+        max-width: 100%;
+    }
+    &__content {
+        padding: 16px;
+    }
+}

@@ -15,4 +15,8 @@ export class PostsService {
   getManyPosts(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(`${API_URL}/posts`);
   }
+
+  getOnePost(id: string): Observable<Post> {
+    return this.httpClient.get<Post>(`${API_URL}/posts/${id}`);
+  }
 }

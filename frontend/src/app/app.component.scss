@@ -1,0 +1,22 @@
+.nav {
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    background-color: #f0f5fc;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 32px;
+    color: white;
+    background-color: black;
+    .contact-data {
+        margin: 0;
+        a {
+            color: white;
+        }
+    }
+}
