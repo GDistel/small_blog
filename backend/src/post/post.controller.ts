@@ -1,5 +1,5 @@
-import { AppDataSource } from '../data-source';
 import * as express from 'express';
+import { AppDataSource } from '../data-source';
 import PostNotFoundException from '../exceptions/PostNotFoundException';
 import Controller from '../interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
