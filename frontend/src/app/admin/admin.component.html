@@ -1,0 +1,17 @@
+<header class="header">
+    <h1 class="header__title">Posts:</h1>
+    <button mat-raised-button class="header__action">New post</button>
+</header>
+<mat-list class="admin-posts-list">
+    <mat-list-item
+        *ngFor="let post of posts$ | async"
+        class="admin-posts-list__item">
+        <mat-icon mat-list-icon>article</mat-icon>
+        <div mat-line class="admin-posts-list__title">{{post.title}}</div>
+        <div mat-line class="admin-posts-list__content"> {{post.content | slice:0:20}} ... </div>
+        <div class="admin-posts-list__actions">
+            <button mat-icon-button><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+        </div>
+    </mat-list-item>
+</mat-list>

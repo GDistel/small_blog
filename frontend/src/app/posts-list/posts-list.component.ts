@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Post } from '../shared/interfaces';
 import { PostsService } from './posts.service';
 
@@ -11,11 +11,15 @@ import { PostsService } from './posts.service';
 })
 export class PostsListComponent implements OnInit {
   posts$!: Observable<Post[]>;
+  noPosts = false;
 
   constructor(private postsSvc: PostsService) { }
 
   ngOnInit(): void {
-    this.posts$ = this.postsSvc.getManyPosts();
+    this.posts$ = this.postsSvc.getManyPosts()
+      .pipe(
+        tap(posts => this.noPosts = !posts?.length)
+      );
   }
 
 }

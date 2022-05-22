@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./post-detail/post-detail.module').then(m => m.PostDetailModule)
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'posts-list'
