@@ -1,0 +1,10 @@
+.post-card {
+    &__container {
+        max-width: 320px;
+    }
+
+    &__image {
+        object-fit: cover;
+        max-height: 320px;
+    }
+}

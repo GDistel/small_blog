@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsString, IsUrl } from 'class-validator';
 
 class CreatePostDto {
   @IsString()
@@ -6,6 +6,9 @@ class CreatePostDto {
 
   @IsString()
   public title: string;
+
+  @IsUrl()
+  public imageUrl: string;
 
 }
 

@@ -12,6 +12,9 @@ class Post {
   @Column()
   public content: string;
 
+  @Column()
+  public imageUrl: string;
+
   @OneToMany(() => Comment, (comment: Comment) => comment.post)
   public comments: Comment[];
 }

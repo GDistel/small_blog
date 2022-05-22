@@ -3,23 +3,33 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { PostCardComponent } from './post-card/post-card.component';
+import { MatCardModule } from '@angular/material/card';
 
+const IMPORT_MATERIAL_MODULES = [
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule
+];
 
-const EXPORTED_MATERIAL_MODULES = [
+const EXPORT_MATERIAL_MODULES = [
   MatToolbarModule,
   MatButtonModule,
   MatIconModule
 ];
 
-
 @NgModule({
-  declarations: [],
+  declarations: [
+    PostCardComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    ...IMPORT_MATERIAL_MODULES
   ],
   exports: [
     CommonModule,
-    ...EXPORTED_MATERIAL_MODULES
+    ...EXPORT_MATERIAL_MODULES,
+    PostCardComponent
   ]
 })
 export class SharedModule { }

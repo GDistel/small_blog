@@ -1,4 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { Post } from '../shared/interfaces';
+import { PostsService } from './posts.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -7,10 +10,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostsListComponent implements OnInit {
+  posts$!: Observable<Post[]>;
 
-  constructor() { }
+  constructor(private postsSvc: PostsService) { }
 
   ngOnInit(): void {
+    this.posts$ = this.postsSvc.getManyPosts();
   }
 
 }
