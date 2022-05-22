@@ -31,8 +31,7 @@ class PostController implements Controller {
 
   private createPostComment = async (request: express.Request, response: express.Response) => {
     const commentData: CreateCommentDto = request.body;
-    const id = request.params.id;
-    const post = await this.postRepository.findOneBy({ id: Number(id) });
+    const post = await this.postRepository.findOneBy({ id: Number(request.params.id) });
     const newComment = this.commentRepository.create({
       ...commentData,
       post
@@ -56,11 +55,14 @@ class PostController implements Controller {
   }
 
   private getPostById = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-    const id = request.params.id;
-    const post = await this.postRepository.findOneBy({ id: Number(id) });
-    const comments = await this.commentRepository.find({ where: { post } });
+    const id = Number(request.params.id);
+    const post = await this.postRepository
+      .createQueryBuilder('post')
+      .where('post.id = :id', { id })
+      .leftJoinAndSelect('post.comments', 'comments')
+      .getOne();
     if (post) {
-      response.send({ post, comments });
+      response.send({ post });
     } else {
       next(new PostNotFoundException(id));
     }
