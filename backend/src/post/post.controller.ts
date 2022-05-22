@@ -5,11 +5,14 @@ import Controller from '../interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import CreatePostDto from './post.dto';
 import Post from './post.entity';
+import Comment from '../comment/comment.entity';
+import CreateCommentDto from '../comment/comment.dto';
 
 class PostController implements Controller {
   public path = '/posts';
   public router = express.Router();
   private postRepository = AppDataSource.getRepository(Post);
+  private commentRepository = AppDataSource.getRepository(Comment);
 
   constructor() {
     this.initializeRoutes();
@@ -17,12 +20,25 @@ class PostController implements Controller {
 
   private initializeRoutes() {
     this.router.get(this.path, this.getAllPosts);
+    this.router.post(`${this.path}/:id/comment`, validationMiddleware(CreateCommentDto), this.createPostComment);
     this.router.get(`${this.path}/:id`, this.getPostById);
     this.router
       .all(`${this.path}/*`)
       .patch(`${this.path}/:id`, validationMiddleware(CreatePostDto, true), this.modifyPost)
       .delete(`${this.path}/:id`, this.deletePost)
       .post(this.path, validationMiddleware(CreatePostDto), this.createPost);
+  }
+
+  private createPostComment = async (request: express.Request, response: express.Response) => {
+    const commentData: CreateCommentDto = request.body;
+    const id = request.params.id;
+    const post = await this.postRepository.findOneBy({ id: Number(id) });
+    const newComment = this.commentRepository.create({
+      ...commentData,
+      post
+    });
+    await this.commentRepository.save(newComment);
+    response.send(newComment);
   }
 
   private createPost = async (request: express.Request, response: express.Response) => {
@@ -42,8 +58,9 @@ class PostController implements Controller {
   private getPostById = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
     const id = request.params.id;
     const post = await this.postRepository.findOneBy({ id: Number(id) });
+    const comments = await this.commentRepository.find({ where: { post } });
     if (post) {
-      response.send(post);
+      response.send({ post, comments });
     } else {
       next(new PostNotFoundException(id));
     }
