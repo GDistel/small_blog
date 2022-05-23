@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { finalize, Observable, tap } from 'rxjs';
 import { PostsService } from '../posts-list/posts.service';
 import { Post } from '../shared/interfaces';
 
@@ -12,10 +12,26 @@ import { Post } from '../shared/interfaces';
 export class AdminComponent implements OnInit {
   posts$!: Observable<Post[]>;
 
-  constructor(private postsSvc: PostsService) { }
+  constructor(private postsSvc: PostsService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.getPosts();
+  }
+
+  getPosts(): void {
     this.posts$ = this.postsSvc.getManyPosts();
+  }
+
+  onDeletePost(id: number | undefined): void {
+    this.postsSvc.deleteOnePost(id)
+      .pipe(
+        finalize(() => {
+          console.log('ger finalize');
+          this.getPosts();
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe();
   }
 
 }

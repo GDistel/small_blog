@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../shared/interfaces';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { Comment } from '../shared/interfaces';
+import { SnackbarService } from '../core/snackbar.service';
 
 const API_URL = 'http://localhost:3000';
 
@@ -11,17 +12,50 @@ const API_URL = 'http://localhost:3000';
 })
 export class PostsService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private snackbarSvc: SnackbarService
+  ) { }
+
+  // Missing: implement server error handling
+
+  private handleMissingIdError(): void {
+    this.snackbarSvc.showBasicMessage('Post id is missing', true);
+    throw new Error('Missing post id');
+  }
 
   getManyPosts(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(`${API_URL}/posts`);
   }
 
-  getOnePost(id: string): Observable<Post> {
+  getOnePost(id: string): Observable<Post> | never {
+    if (!id) {
+      this.handleMissingIdError();
+    }
     return this.httpClient.get<Post>(`${API_URL}/posts/${id}`);
   }
 
-  createPostComment(postId: string, comment: Comment): Observable<Comment> {
+  deleteOnePost(id: number | undefined): Observable<any> | never {
+    if (!id) {
+      this.handleMissingIdError();
+    }
+    return this.httpClient.delete(
+      `${API_URL}/posts/${id}`,
+      { observe: 'body', responseType: 'text' }
+      )
+      .pipe(
+        tap(() => this.snackbarSvc.showBasicMessage('Successfully deleted'))
+      );
+  }
+
+  createPostComment(postId: string, comment: Comment): Observable<Comment> | never {
+    if (!postId) {
+      this.handleMissingIdError();
+    }
+    if (!comment) {
+      this.snackbarSvc.showBasicMessage('Comment data is missing', true);
+      throw new Error('Missing comment data');  
+    }
     return this.httpClient.post<Comment>(`${API_URL}/posts/${postId}/comment`, comment);
   }
 }

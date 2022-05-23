@@ -11,7 +11,9 @@
         <div mat-line class="admin-posts-list__content"> {{post.content | slice:0:20}} ... </div>
         <div class="admin-posts-list__actions">
             <button mat-icon-button><mat-icon>edit</mat-icon></button>
-            <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button color="warn" (click)="onDeletePost(post.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
         </div>
     </mat-list-item>
 </mat-list>
