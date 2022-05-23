@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize, Observable } from 'rxjs';
+import { EMPTY, finalize, Observable, switchMap } from 'rxjs';
+import { DialogService } from '../core/dialog.service';
 import { PostsService } from '../core/posts.service';
 import { Post } from '../shared/interfaces';
 
@@ -16,7 +17,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private postsSvc: PostsService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private dialogSvc: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -33,13 +35,21 @@ export class AdminComponent implements OnInit {
   }
 
   onDeletePost(id: number | undefined): void {
-    // Add dialog prompting the user if he/she is sure to delete
-    this.postsSvc.deleteOnePost(id)
+    const message = 'Are you sure that you want to delete the selected post?';
+    this.dialogSvc.openDialog(message)
+      .afterClosed()
       .pipe(
-        finalize(() => {
-          console.log('ger finalize');
-          this.getPosts();
-          this.cdr.detectChanges();
+        switchMap(confirms => {
+          if (confirms) {
+            return this.postsSvc.deleteOnePost(id)
+            .pipe(
+              finalize(() => {
+                this.getPosts();
+                this.cdr.detectChanges();
+              })
+            );
+          }
+          return EMPTY;
         })
       )
       .subscribe();

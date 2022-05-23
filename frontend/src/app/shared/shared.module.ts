@@ -10,11 +10,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+
 
 const IMPORT_MATERIAL_MODULES = [
   MatButtonModule,
   MatIconModule,
-  MatCardModule
+  MatCardModule,
+  MatDialogModule
 ];
 
 const EXPORT_MATERIAL_MODULES = [
@@ -24,13 +28,15 @@ const EXPORT_MATERIAL_MODULES = [
   MatListModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDialogModule
 ];
 
 @NgModule({
   declarations: [
     PostCardComponent,
-    CommentComponent
+    CommentComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +47,7 @@ const EXPORT_MATERIAL_MODULES = [
     ...EXPORT_MATERIAL_MODULES,
     PostCardComponent,
     CommentComponent,
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }

@@ -11,3 +11,7 @@ export interface Comment {
     email: string;
     text: string;
 }
+
+export interface ConfirmDialogData {
+    message: string;
+}
