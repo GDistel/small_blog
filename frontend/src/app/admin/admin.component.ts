@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, Observable } from 'rxjs';
-import { PostsService } from '../posts-list/posts.service';
+import { PostsService } from '../core/posts.service';
 import { Post } from '../shared/interfaces';
 
 @Component({

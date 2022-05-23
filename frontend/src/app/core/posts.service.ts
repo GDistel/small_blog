@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Post } from '../shared/interfaces';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { Comment } from '../shared/interfaces';
-import { SnackbarService } from '../core/snackbar.service';
+import { SnackbarService } from './snackbar.service';
 
 const API_URL = 'http://localhost:3000';
 

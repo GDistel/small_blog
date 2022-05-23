@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs';
 import { SnackbarService } from '../core/snackbar.service';
-import { PostsService } from '../posts-list/posts.service';
+import { PostsService } from '../core/posts.service';
 import { Post, Comment } from '../shared/interfaces';
 
 @Component({

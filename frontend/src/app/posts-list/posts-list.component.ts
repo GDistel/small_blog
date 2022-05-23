@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Post } from '../shared/interfaces';
-import { PostsService } from './posts.service';
+import { PostsService } from '../core/posts.service';
 
 @Component({
   selector: 'app-posts-list',
