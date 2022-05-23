@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { filter, first } from 'rxjs';
+import { SnackbarService } from '../core/snackbar.service';
 import { PostsService } from '../posts-list/posts.service';
 import { Post } from '../shared/interfaces';
 
@@ -14,31 +15,74 @@ import { Post } from '../shared/interfaces';
 export class PostEditorComponent implements OnInit {
   title!: string;
   content!: string;
-  @ViewChild('postForm') commentForm!: NgForm;
+  id!: number;
+  isNew = false;
+  @ViewChild('postForm') postForm!: NgForm;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private postsSvc: PostsService
+    private postsSvc: PostsService,
+    private cdr: ChangeDetectorRef,
+    private snackbarSvc: SnackbarService
   ) { }
 
   ngOnInit(): void {
-    const isNew = this.activatedRoute.snapshot.queryParamMap.get('new');
-    if (!isNew) {
+    this.isNew = !!this.activatedRoute.snapshot.queryParamMap.get('new');
+    if (!this.isNew) {
       this.postsSvc.selectedPost$
         .pipe(
           filter(post => !!post),
           first(),
         ).subscribe({
-          next: post => {
-            this.title = (post as Post).title;
-            this.content = (post as Post).content;
+          next: result => {
+            const post = result as Post;
+            this.title = post.title;
+            this.content = post.content;
+            this.id = post.id as number;
           }
         });
     }
   }
 
-  onSubmit(): void {
+  private resetForm(): void {
+    this.postForm.resetForm();
+    this.cdr.detectChanges();
+  }
 
+  private createPost(post: Partial<Post>): void {
+    
+    this.postsSvc.createPost(post)
+      .subscribe({
+        next: post => {
+          this.postsSvc.setSelectedPost(post);
+          this.snackbarSvc.showBasicMessage('Post successfully created');
+          this.resetForm();
+        }
+      });
+  }
+
+  private updatePost(post: Partial<Post>): void {
+    post.id = this.id;
+    this.postsSvc.updatePost(post)
+      .subscribe({
+        next: post => {
+          this.snackbarSvc.showBasicMessage('Post successfully updated');
+        }
+      });
+  }
+
+  onSubmit(): void {
+      // Missing better controls validation
+    const postData: Partial<Post> = {
+      title: this.title,
+      content: this.content,
+      imageUrl: `https://source.unsplash.com/random?sig=${Math.floor(Math.random() * 10)}`
+    };
+    if (this.isNew) {
+      this.createPost(postData);
+    } else {
+      this.updatePost(postData);
+    }
   }
 
 }

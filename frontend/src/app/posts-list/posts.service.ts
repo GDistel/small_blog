@@ -44,6 +44,14 @@ export class PostsService {
     return this.httpClient.get<Post>(`${API_URL}/posts/${id}`);
   }
 
+  updatePost(post: Partial<Post>): Observable<Post> | never {
+    if (!post) {
+      this.snackbarSvc.showBasicMessage('Post data is missing', true);
+      throw new Error('Missing post data');
+    }
+    return this.httpClient.patch<Post>(`${API_URL}/posts/${post.id}`, post);
+  }
+
   deleteOnePost(id: number | undefined): Observable<any> | never {
     if (!id) {
       this.handleMissingIdError();
@@ -55,6 +63,14 @@ export class PostsService {
       .pipe(
         tap(() => this.snackbarSvc.showBasicMessage('Successfully deleted'))
       );
+  }
+
+  createPost(postData: Partial<Post>): Observable<Post> | never {
+    if (!postData) {
+      this.snackbarSvc.showBasicMessage('Post data is missing', true);
+      throw new Error('Missing post data');  
+    }
+    return this.httpClient.post<Post>(`${API_URL}/posts`, postData);
   }
 
   createPostComment(postId: string, comment: Comment): Observable<Comment> | never {

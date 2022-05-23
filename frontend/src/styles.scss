@@ -24,7 +24,24 @@ body {
     background-color: var(--error-color);
 }
 
+
+
+// Below is dupliate code in each of the components
+
+// .post-detail, .post-editor {
+//     &__header {
+//         padding: 16px 8px;
+//         display: flex;
+//         align-items: center;
+    
+//         .header__title {
+//             margin: 0;
+//         }
+//     }
+// }
+
 // .post-detail__comment-form, .post-editor__post-form {
+
 //     background-color: #424242;
 //     padding: 16px;
 //     margin: 0 16px 16px 16px;
