@@ -15,17 +15,21 @@
     <h3 class="post-detail__comment-form_title">
         Leave your comment:
     </h3>
-    <form #commentForm="ngForm" class="post-detail__comment-form">
+    <form #commentForm="ngForm" (ngSubmit)="onSubmitComment()" class="post-detail__comment-form">
         <mat-form-field class="post-detail__comment-form_field" color="accent">
             <mat-label>Email</mat-label>
-            <input matInput type="email" [(ngModel)]="email" name="email" class="post-detail__comment-form_input">
+            <input
+                matInput type="email" [(ngModel)]="email" name="email"
+                class="post-detail__comment-form_input" required>
         </mat-form-field>
         <mat-form-field class="post-detail__comment-form_field" color="accent">
             <mat-label>Comment</mat-label>
-            <textarea matInput rows="5" [(ngModel)]="comment" name="comment"  class="post-detail__comment-form_input"></textarea>
+            <textarea
+                matInput rows="5" [(ngModel)]="comment" name="comment" 
+                class="post-detail__comment-form_input" required>
+            </textarea>
         </mat-form-field>
-        <button mat-raised-button color="accent"
-            (click)="commentForm.valid && onSubmitComment()">
+        <button mat-raised-button color="accent" type="submit" [disabled]="!commentForm.valid">
             Submit comment
         </button>
     </form>

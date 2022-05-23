@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs';
 import { SnackbarService } from '../core/snackbar.service';
@@ -15,7 +16,7 @@ export class PostDetailComponent implements OnInit {
   post!: Post;
   email!: string;
   comment!: string;
-  @ViewChild('commentForm') commentForm!: HTMLFormElement;
+  @ViewChild('commentForm') commentForm!: NgForm;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,14 +39,15 @@ export class PostDetailComponent implements OnInit {
   }
 
   onSubmitComment(): void {
+    // Missing better controls validation
     const commentData: Comment = { email: this.email, text: this.comment };
     this.postsSvc.createPostComment(String(this.post.id), commentData)
       .subscribe({
         next: comment => {
           this.snackbarSvc.showBasicMessage('Comment successfully submited');
           this.post.comments.push(comment);
+          this.commentForm.resetForm();
           this.cdr.detectChanges();
-          this.commentForm.reset();
         }
       });
   }
