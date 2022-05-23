@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../shared/interfaces';
-import { catchError, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { Comment } from '../shared/interfaces';
 import { SnackbarService } from '../core/snackbar.service';
 
@@ -11,17 +11,26 @@ const API_URL = 'http://localhost:3000';
   providedIn: 'root'
 })
 export class PostsService {
+  private readonly selectedPostSubject = new BehaviorSubject<Post | null>(null);
+  
+  get selectedPost$() {
+    return this.selectedPostSubject.asObservable();
+  }
 
   constructor(
     private httpClient: HttpClient,
     private snackbarSvc: SnackbarService
   ) { }
 
-  // Missing: implement server error handling
+  // Missing: implement server error handling with catchError operator
 
   private handleMissingIdError(): void {
     this.snackbarSvc.showBasicMessage('Post id is missing', true);
     throw new Error('Missing post id');
+  }
+
+  setSelectedPost(post: Post): void {
+    this.selectedPostSubject.next(post);
   }
 
   getManyPosts(): Observable<Post[]> {

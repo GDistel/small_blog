@@ -1,6 +1,8 @@
 <header class="header">
     <h1 class="header__title">Posts:</h1>
-    <button mat-raised-button class="header__action">New post</button>
+    <button mat-raised-button class="header__action" routerLink="/post-editor" [queryParams]="{ new: true }">
+        New post
+    </button>
 </header>
 <mat-list class="admin-posts-list">
     <mat-list-item
@@ -10,7 +12,7 @@
         <div mat-line class="admin-posts-list__title">{{post.title}}</div>
         <div mat-line class="admin-posts-list__content"> {{post.content | slice:0:20}} ... </div>
         <div class="admin-posts-list__actions">
-            <button mat-icon-button><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button (click)="onEditPost(post)"><mat-icon>edit</mat-icon></button>
             <button mat-icon-button color="warn" (click)="onDeletePost(post.id)">
                 <mat-icon>delete</mat-icon>
             </button>

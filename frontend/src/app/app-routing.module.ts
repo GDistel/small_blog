@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
+    path: 'post-editor',
+    loadChildren: () => import('./post-editor/post-editor.module').then(m => m.PostEditorModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'posts-list'

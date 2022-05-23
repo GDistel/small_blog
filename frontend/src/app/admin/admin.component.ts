@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { finalize, Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { finalize, Observable } from 'rxjs';
 import { PostsService } from '../posts-list/posts.service';
 import { Post } from '../shared/interfaces';
 
@@ -12,7 +13,11 @@ import { Post } from '../shared/interfaces';
 export class AdminComponent implements OnInit {
   posts$!: Observable<Post[]>;
 
-  constructor(private postsSvc: PostsService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private postsSvc: PostsService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getPosts();
@@ -22,7 +27,13 @@ export class AdminComponent implements OnInit {
     this.posts$ = this.postsSvc.getManyPosts();
   }
 
+  onEditPost(post: Post): void {
+    this.postsSvc.setSelectedPost(post);
+    this.router.navigate(['/', 'post-editor']);
+  }
+
   onDeletePost(id: number | undefined): void {
+    // Add dialog prompting the user if he/she is sure to delete
     this.postsSvc.deleteOnePost(id)
       .pipe(
         finalize(() => {
