@@ -61,7 +61,7 @@ export class PostsService {
       { observe: 'body', responseType: 'text' }
       )
       .pipe(
-        tap(() => this.snackbarSvc.showBasicMessage('Successfully deleted'))
+        tap(() => this.snackbarSvc.showBasicMessage('Post successfully deleted'))
       );
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { EMPTY, finalize, Observable, switchMap } from 'rxjs';
+import { EMPTY, finalize, Observable, switchMap, tap } from 'rxjs';
 import { DialogService } from '../core/dialog.service';
 import { PostsService } from '../core/posts.service';
 import { Post } from '../shared/interfaces';
@@ -13,6 +13,7 @@ import { Post } from '../shared/interfaces';
 })
 export class AdminComponent implements OnInit {
   posts$!: Observable<Post[]>;
+  noPosts = false;
 
   constructor(
     private postsSvc: PostsService,
@@ -26,7 +27,10 @@ export class AdminComponent implements OnInit {
   }
 
   getPosts(): void {
-    this.posts$ = this.postsSvc.getManyPosts();
+    this.posts$ = this.postsSvc.getManyPosts()
+      .pipe(
+        tap(posts => this.noPosts = !posts?.length)
+      );
   }
 
   onEditPost(post: Post): void {

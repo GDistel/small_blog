@@ -12,10 +12,15 @@
         <div mat-line class="admin-posts-list__title">{{post.title}}</div>
         <div mat-line class="admin-posts-list__content"> {{post.content | slice:0:20}} ... </div>
         <div class="admin-posts-list__actions">
-            <button mat-icon-button (click)="onEditPost(post)"><mat-icon>edit</mat-icon></button>
-            <button mat-icon-button color="warn" (click)="onDeletePost(post.id)">
+            <button mat-icon-button (click)="onEditPost(post)" class="admin-posts-list__edit-post">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" class="admin-posts-list__delete-post"
+                (click)="onDeletePost(post.id)" >
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
     </mat-list-item>
 </mat-list>
+
+<p *ngIf="noPosts" class="centered-paragraph">There are no posts</p>

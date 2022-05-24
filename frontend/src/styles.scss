@@ -24,7 +24,12 @@ body {
     background-color: var(--error-color);
 }
 
-
+.centered-paragraph {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 8px;
+}
 
 // Below is dupliate code in each of the components
 

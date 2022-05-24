@@ -1,0 +1,24 @@
+{
+  "integrationFolder": "cypress/integration",
+  "supportFile": "cypress/support/index.ts",
+  "videosFolder": "cypress/videos",
+  "screenshotsFolder": "cypress/screenshots",
+  "pluginsFile": "cypress/plugins/index.ts",
+  "fixturesFolder": "cypress/fixtures",
+  "baseUrl": "http://localhost:4200",
+  "testFiles": [
+    "TC01_post-editor.spec.ts",
+    "TC02_admin.spec.ts",
+    "TC03_writeReadFile.spec.ts",
+    "TC04_each.spec.ts",
+    "TC05_conditionalTesting.spec.ts",
+    "TC06_fileUpload.spec.ts",
+    "TC07_fileDownload.spec.ts",
+    "TC08_apiTesting.spec.ts",
+    "TC09_apiChaining.spec.ts",
+    "TC_10_apiMocking.spec.ts",
+    "TC_11_tsAlertConfirmPrompt.spec.ts",
+    "TC_12_usingskip.spec.ts",
+    "TC_13_usingOnly.spec.ts"
+  ]
+}
