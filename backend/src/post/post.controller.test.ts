@@ -4,6 +4,10 @@ import App from '../app';
 import PostController from './post.controller';
 import CreatePostDto from './post.dto';
 import Post from './post.entity';
+import CreateCommentDto from 'comment/comment.dto';
+
+// TO DO: Improve by creating beforeEach() -- solve entities metadata issue
+// TO DO: Add tests for error cases, test middleware
 
 describe('PostController ', () => {
 
@@ -98,5 +102,32 @@ describe('PostController ', () => {
         return request(appInstance.app)
             .delete(`${postsController.path}/1`)
             .expect(200);
+    });
+
+    it('POST /post/:id/comment', () => {
+        const post: Post = {
+            id: 1, title: 'My post', content: 'blog post',
+            imageUrl: 'https://www.google.com', comments: []
+        };
+        const commentData: CreateCommentDto = {
+            email: 'john@company.com',
+            text: 'Awesome post!'
+        };
+        AppDataSource.getRepository = jest.fn().mockReturnValue({
+            create: () => ({...commentData, id: 1, post }),
+            save: () => Promise.resolve(),
+            findOneBy: () => Promise.resolve(post)
+        });
+        const postsController = new PostController();
+        const appInstance = new App([postsController]);
+        return request(appInstance.app)
+            .post(`${postsController.path}/${post.id}/comment`)
+            .send(commentData)
+            .expect((res) => {
+                expect(res.body.email).toBe(commentData.email);
+                expect(res.body.text).toBe(commentData.text);
+                expect(res.body.id).toBe(1);
+                expect(res.body.post).toEqual(post);
+            });
     });
 });
