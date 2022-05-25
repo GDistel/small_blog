@@ -15,7 +15,7 @@ class Post {
   @Column()
   public imageUrl: string;
 
-  @OneToMany(() => Comment, (comment: Comment) => comment.post, { eager: false, onDelete: 'CASCADE' })
+  @OneToMany(() => Comment, (comment: Comment) => comment.post, { eager: false, cascade: true, nullable: true })
   public comments: Comment[];
 }
  

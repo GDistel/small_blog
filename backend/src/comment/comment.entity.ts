@@ -12,7 +12,7 @@ class Comment {
   @Column()
   public text: string;
 
-  @ManyToOne(() => Post, (post: Post) => post.comments)
+  @ManyToOne(() => Post, (post: Post) => post.comments, { nullable: true, onDelete: 'CASCADE' })
   public post: Post;
 
 }

@@ -7,6 +7,7 @@
   "fixturesFolder": "cypress/fixtures",
   "baseUrl": "http://localhost:4200",
   "testFiles": [
-    "TC01_admin.spec.ts"
+    "TC01_admin.spec.ts",
+    "TC02_posts.spec.ts"
   ]
 }

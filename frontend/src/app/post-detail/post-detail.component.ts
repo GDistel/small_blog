@@ -44,7 +44,7 @@ export class PostDetailComponent implements OnInit {
     this.postsSvc.createPostComment(String(this.post.id), commentData)
       .subscribe({
         next: comment => {
-          this.snackbarSvc.showBasicMessage('Comment successfully submited');
+          this.snackbarSvc.showBasicMessage('Comment successfully submitted');
           this.post.comments.push(comment);
           this.commentForm.resetForm();
           this.cdr.detectChanges();

@@ -1,12 +1,4 @@
-const POST_TITLE = 'Cypress: My awesome post title';
-const POST_CONTENT = 'Cypress: This is the content of the blogpost';
-
-const createPost = () => {
-  cy.visit('/post-editor?new=true');
-  cy.get('input').type(POST_TITLE);
-  cy.get('textarea').type(POST_CONTENT);
-  cy.get('button[mat-raised-button]').contains('Submit post').click();
-};
+import { createPost, POST_CONTENT, POST_TITLE } from "./common";
 
 const getSuccessMessageForPostAction = (action: string): string => {
   return `Post successfully ${action}`;
