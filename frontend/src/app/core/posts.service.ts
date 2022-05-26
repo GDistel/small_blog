@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Post } from '../shared/interfaces';
+import { HttpClient, HttpParams, HttpParamsOptions } from '@angular/common/http';
+import { PagedResponse, Post } from '../shared/interfaces';
 import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 import { Comment } from '../shared/interfaces';
 import { SnackbarService } from './snackbar.service';
@@ -33,8 +33,9 @@ export class PostsService {
     this.selectedPostSubject.next(post);
   }
 
-  getManyPosts(): Observable<Post[]> {
-    return this.httpClient.get<Post[]>(`${API_URL}/posts`);
+  getManyPosts(page: number, limit: number): Observable<PagedResponse<Post>> {
+    const params = { limit, page };
+    return this.httpClient.get<PagedResponse<Post>>(`${API_URL}/posts`, { params });
   }
 
   getOnePost(id: string): Observable<Post> | never {

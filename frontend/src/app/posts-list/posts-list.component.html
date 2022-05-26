@@ -6,3 +6,10 @@
 </app-post-card>
 
 <p *ngIf="noPosts" class="centered-paragraph">There are no posts</p>
+
+<app-paginator
+    [limit]="limit"
+    [total]="total"
+    [page]="page"
+    (pageEvent)="onPageEvent($event)">
+</app-paginator>

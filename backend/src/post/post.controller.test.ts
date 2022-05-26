@@ -60,13 +60,22 @@ describe('PostController ', () => {
         ];
         AppDataSource.getRepository = jest.fn().mockReturnValue({
             find: () => (posts),
+            createQueryBuilder: (entity: string) => ({
+                orderBy: () => ({
+                    offset: () => ({
+                        limit: () => ({
+                            getManyAndCount: () => ([[], 3] as any)
+                        })
+                    })
+                })
+            }),
         });
         const postsController = new PostController();
         const appInstance = new App([postsController]);
         return request(appInstance.app)
-            .get(`${postsController.path}`)
+            .get(`${postsController.path}?page=1&limit=3`)
             .expect((res) => {
-                expect(res.body).toEqual(posts);
+                expect(res.body).toEqual({data: [], total: 3, limit: 3, page: 1});
             });
     });
 

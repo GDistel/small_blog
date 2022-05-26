@@ -7,6 +7,7 @@ import CreatePostDto from './post.dto';
 import Post from './post.entity';
 import Comment from '../comment/comment.entity';
 import CreateCommentDto from '../comment/comment.dto';
+import { Pagination } from '../utils/pagination';
 
 class PostController implements Controller {
   public path = '/posts';
@@ -50,8 +51,12 @@ class PostController implements Controller {
   }
 
   private getAllPosts = async (request: express.Request, response: express.Response) => {
-    const posts = await this.postRepository.find();
-    response.send(posts);
+    const pagination = new Pagination(+request.query.page, +request.query.limit);
+    const postsQuery = this.postRepository.createQueryBuilder('post').orderBy('post.id', 'DESC');
+    const paginatedQuery = pagination.paginateQuery<Post>(postsQuery);
+    const [data, totalCount] = await paginatedQuery.getManyAndCount();
+    const res = pagination.paginateItems<Post>(data, totalCount);
+    response.send(res);
   }
 
   private getPostById = async (request: express.Request, response: express.Response, next: express.NextFunction) => {

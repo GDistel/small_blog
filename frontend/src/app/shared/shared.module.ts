@@ -12,13 +12,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 
 const IMPORT_MATERIAL_MODULES = [
   MatButtonModule,
   MatIconModule,
   MatCardModule,
-  MatDialogModule
+  MatDialogModule,
+  MatPaginatorModule
 ];
 
 const EXPORT_MATERIAL_MODULES = [
@@ -36,7 +39,8 @@ const EXPORT_MATERIAL_MODULES = [
   declarations: [
     PostCardComponent,
     CommentComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +51,8 @@ const EXPORT_MATERIAL_MODULES = [
     ...EXPORT_MATERIAL_MODULES,
     PostCardComponent,
     CommentComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PaginatorComponent
   ]
 })
 export class SharedModule { }
