@@ -16,6 +16,8 @@ Shell 1: `docker-compose up`
 Shell 2: `cd backend && npm run dev`  
 Shell 3: `cd frontend && npm start`  
 
+Note: there is an `/admin` path to create, edit, delete posts
+
 # Run tests
 
 Backend: `cd backend && npm test`  
