@@ -10,7 +10,6 @@ import { Post } from '../interfaces';
 export class PostCardComponent implements OnInit {
   @Input() maxCharacters = 50;
   @Input() post!: Post;
-  imageLoaded = false;
 
   constructor() { }
 

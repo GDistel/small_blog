@@ -5,8 +5,7 @@
         </button>
         <h1 class="header__title">{{ post.title }}</h1>
     </header>
-    <img [hidden]="imageLoaded" src="{{ post.imageUrl }}" alt="Post image" class="post-detail__image" (load)="imageLoaded = true">
-    <img *ngIf="!imageLoaded" mat-card-image src="assets/images/placeholder.png"  alt="Post image placeholder" class="post-detail__image">
+    <img appWaitForImage src="{{ post.imageUrl }}" alt="Post image" class="post-detail__image">
     <p class="post-detail__content">{{ post.content }}</p>
     <h2 class="post-detail__comments-title">Comments &nbsp;<mat-icon inline>forum</mat-icon></h2>
     <app-comment

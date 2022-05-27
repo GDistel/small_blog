@@ -16,7 +16,6 @@ export class PostDetailComponent implements OnInit {
   post!: Post;
   email!: string;
   comment!: string;
-  imageLoaded = false;
   @ViewChild('commentForm') commentForm!: NgForm;
 
   constructor(
