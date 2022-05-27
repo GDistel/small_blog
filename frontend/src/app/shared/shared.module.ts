@@ -14,7 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './paginator/paginator.component';
-import { WaitForImageDirective } from './wait-for-image.directive';
+import { WaitWithPlaceholder } from './wait-with-placeholder.directive';
 
 
 const IMPORT_MATERIAL_MODULES = [
@@ -42,8 +42,7 @@ const EXPORT_MATERIAL_MODULES = [
     CommentComponent,
     ConfirmDialogComponent,
     PaginatorComponent,
-    WaitForImageDirective,
-
+    WaitWithPlaceholder
   ],
   imports: [
     CommonModule,
@@ -56,7 +55,7 @@ const EXPORT_MATERIAL_MODULES = [
     CommentComponent,
     ConfirmDialogComponent,
     PaginatorComponent,
-    WaitForImageDirective
+    WaitWithPlaceholder
   ]
 })
 export class SharedModule { }

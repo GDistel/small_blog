@@ -5,7 +5,7 @@
         </button>
         <h1 class="header__title">{{ post.title }}</h1>
     </header>
-    <img appWaitForImage src="{{ post.imageUrl }}" alt="Post image" class="post-detail__image">
+    <img appWaitWithPlaceholder="assets/images/placeholder.png" src="{{ post.imageUrl }}" alt="Post image" class="post-detail__image">
     <p class="post-detail__content">{{ post.content }}</p>
     <h2 class="post-detail__comments-title">Comments &nbsp;<mat-icon inline>forum</mat-icon></h2>
     <app-comment

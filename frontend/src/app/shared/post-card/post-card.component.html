@@ -3,7 +3,7 @@
         <mat-card-title>{{ post.title }}</mat-card-title>
         <mat-card-subtitle>Small Blog post</mat-card-subtitle>
     </mat-card-header>
-    <img appWaitForImage mat-card-image src="{{ post.imageUrl }}" alt="Post image"
+    <img appWaitWithPlaceholder="assets/images/placeholder.png" mat-card-image src="{{ post.imageUrl }}" alt="Post image"
         class="post-card__image">
     <mat-card-content>
         <p>{{ post.content | slice:0:maxCharacters }}</p>

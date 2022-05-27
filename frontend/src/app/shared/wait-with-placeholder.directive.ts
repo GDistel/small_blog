@@ -1,8 +1,8 @@
-import { Component, Directive, ElementRef, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Directive, ElementRef, HostListener, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
 @Component({
   template: `
-    <img #placeholderImage src="assets/images/placeholder.png">
+    <img #placeholderImage>
   `
 })
 class PlaceholderImageComponent {
@@ -10,9 +10,10 @@ class PlaceholderImageComponent {
 }
 
 @Directive({
-  selector: '[appWaitForImage]'
+  selector: '[appWaitWithPlaceholder]'
 })
-export class WaitForImageDirective implements OnInit {
+export class WaitWithPlaceholder implements OnInit {
+  @Input('appWaitWithPlaceholder') placeholder!: string;
 
   constructor(
     private elementRef: ElementRef,
@@ -22,8 +23,9 @@ export class WaitForImageDirective implements OnInit {
   ngOnInit(): void {
     const componentRef = this.viewContainerRef.createComponent(PlaceholderImageComponent);
     setTimeout(() => {
+      componentRef.instance.img.nativeElement.src = this.placeholder;
       componentRef.instance.img.nativeElement.className = this.elementRef.nativeElement.className;
-      componentRef.instance.img.nativeElement.alt = this.elementRef.nativeElement.alt + 'placeholder';
+      componentRef.instance.img.nativeElement.alt = this.elementRef.nativeElement.alt + ' placeholder';
     });
   }
 
