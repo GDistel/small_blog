@@ -21,16 +21,19 @@ export class WaitWithPlaceholder implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.elementRef.nativeElement.style.display = 'none';
     const componentRef = this.viewContainerRef.createComponent(PlaceholderImageComponent);
     setTimeout(() => {
-      componentRef.instance.img.nativeElement.src = this.placeholder;
-      componentRef.instance.img.nativeElement.className = this.elementRef.nativeElement.className;
-      componentRef.instance.img.nativeElement.alt = this.elementRef.nativeElement.alt + ' placeholder';
+      const elem = componentRef.instance.img.nativeElement;
+      elem.src = this.placeholder;
+      elem.className = this.elementRef.nativeElement.className;
+      elem.alt = this.elementRef.nativeElement.alt + ' placeholder';
     });
   }
 
   @HostListener('load')
   onLoad(): void {
     this.viewContainerRef.clear();
+    this.elementRef.nativeElement.style.display = '';
   }
 }
