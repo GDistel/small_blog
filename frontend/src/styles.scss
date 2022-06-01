@@ -10,7 +10,7 @@ body {
 body {
     box-sizing: border-box;
     margin: 0 auto;
-    max-width: 640px;
+    max-width: 1200px; // alt 640px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -34,38 +34,9 @@ body {
 .post-detail__image {
     display: block;
     max-width: 100%;
+    margin: 0 auto;
 }
 
-// Below is dupliate code in each of the components
-
-// .post-detail, .post-editor {
-//     &__header {
-//         padding: 16px 8px;
-//         display: flex;
-//         align-items: center;
-    
-//         .header__title {
-//             margin: 0;
-//         }
-//     }
-// }
-
-// .post-detail__comment-form, .post-editor__post-form {
-
-//     background-color: #424242;
-//     padding: 16px;
-//     margin: 0 16px 16px 16px;
-
-//     &_title {
-//         margin: 0;
-//         padding: 16px;
-//     }
-
-//     &_field {
-//         display: block;
-//     }
-
-//     &_input {
-//         color: white;
-//     }
-// }
+.mat-paginator-container {
+    justify-content: space-between !important;
+}

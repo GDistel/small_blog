@@ -1,3 +1,9 @@
+:host {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .nav {
     display: flex;
     justify-content: center;
@@ -5,6 +11,7 @@
 
 .content {
     background-color: #f0f5fc;
+    flex: 1;
 }
 
 .footer {

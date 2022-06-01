@@ -76,7 +76,7 @@ export class PostEditorComponent implements OnInit {
     const postData: Partial<Post> = {
       title: this.title,
       content: this.content,
-      imageUrl: `https://source.unsplash.com/random?sig=${Math.floor(Math.random() * 10)}`
+      imageUrl: `https://source.unsplash.com/random/1200x900?sig=${Math.floor(Math.random() * 10)}`
     };
     if (this.isNew) {
       this.createPost(postData);

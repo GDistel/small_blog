@@ -1,3 +1,9 @@
+@import "src/mixins.scss";
+
+:host {
+    @include occupy-space-content;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -9,6 +15,8 @@
 }
 
 .admin-posts-list {
+    flex: 1;
+
     &__title {
         font-weight: 700;
     }

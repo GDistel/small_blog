@@ -1,0 +1,8 @@
+@mixin occupy-space-content {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 148px); // nav bar + footer height above 600px width
+    @media screen and (max-width: 600px) {
+        min-height: calc(100vh - 140px); // nav bar + footer height below 600px width
+    }
+}

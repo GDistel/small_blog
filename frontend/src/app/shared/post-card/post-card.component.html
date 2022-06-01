@@ -1,6 +1,6 @@
 <mat-card class="post-card__container">
     <mat-card-header>
-        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-title>{{ post.title | slice:0:30 }}</mat-card-title>
         <mat-card-subtitle>Small Blog post</mat-card-subtitle>
     </mat-card-header>
     <img appWaitWithPlaceholder="assets/images/placeholder.png" mat-card-image src="{{ post.imageUrl }}" alt="Post image"

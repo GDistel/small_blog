@@ -1,13 +1,16 @@
-<app-post-card
-    class="post-card mat-elevation-z12"
-    *ngFor="let post of posts$ | async"
-    [post]="post"
-    [routerLink]="'/post-detail/' + post.id">
-</app-post-card>
+<section class="posts">
+    <app-post-card
+        class="post-card mat-elevation-z12"
+        *ngFor="let post of posts$ | async"
+        [post]="post"
+        [routerLink]="'/post-detail/' + post.id">
+    </app-post-card>
+</section>
 
 <p *ngIf="noPosts" class="centered-paragraph">There are no posts</p>
 
 <app-paginator
+    class="paginator"
     [limit]="limit"
     [total]="total"
     [page]="page"
