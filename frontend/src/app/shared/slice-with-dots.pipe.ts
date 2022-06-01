@@ -7,7 +7,7 @@ export class SliceWithDotsPipe implements PipeTransform {
   transform(
     value: string | null | undefined, end: number
   ): string | null {
-    if (value == null) return null;
+    if (value == null || end < 1) return null;
     const suffix = value && value.length > end ? '...' : '';
     return value.slice(0, end) + suffix;
   }

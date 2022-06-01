@@ -9,7 +9,7 @@ describe('SliceWithDotsPipe', () => {
   });
 
   beforeEach(() => {
-    testString = 'This is my very long test string';
+    testString = 'This is a very long test string';
   });
 
   it('slices a string and adds the ellipsis at the end', () => {
@@ -20,6 +20,21 @@ describe('SliceWithDotsPipe', () => {
   it('returns unmodified string if it is less than the cut point', () => {
     const result = pipe.transform(testString, 90);
     expect(result).toBe(testString);
+  });
+
+  it('returns empty string for an empty string value', () => {
+    const result = pipe.transform('', 1);
+    expect(result).toBe('');
+  });
+
+  it('returns null for a 0 value of the end parameter', () => {
+    const result = pipe.transform(testString, 0);
+    expect(result).toBe(null);
+  });
+
+  it('returns null for a negative value of the end parameter', () => {
+    const result = pipe.transform(testString, -1);
+    expect(result).toBe(null);
   });
 
   it('returns null if the value is null', () => {
