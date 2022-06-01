@@ -15,6 +15,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { WaitWithPlaceholder } from './wait-with-placeholder.directive';
+import { SliceWithDotsPipe } from './slice-with-dots.pipe';
 
 
 const IMPORT_MATERIAL_MODULES = [
@@ -42,7 +43,8 @@ const EXPORT_MATERIAL_MODULES = [
     CommentComponent,
     ConfirmDialogComponent,
     PaginatorComponent,
-    WaitWithPlaceholder
+    WaitWithPlaceholder,
+    SliceWithDotsPipe
   ],
   imports: [
     CommonModule,

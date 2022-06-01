@@ -8,7 +8,8 @@ import { Post } from '../interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostCardComponent implements OnInit {
-  @Input() maxCharacters = 50;
+  @Input() maxTitleCharacters = 27;
+  @Input() maxBodyCharacters = 50;
   @Input() post!: Post;
 
   constructor() { }

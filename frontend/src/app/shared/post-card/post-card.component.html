@@ -1,12 +1,12 @@
 <mat-card class="post-card__container">
     <mat-card-header>
-        <mat-card-title>{{ post.title | slice:0:30 }}</mat-card-title>
+        <mat-card-title>{{ post.title | sliceWithDots:maxTitleCharacters }}</mat-card-title>
         <mat-card-subtitle>Small Blog post</mat-card-subtitle>
     </mat-card-header>
     <img appWaitWithPlaceholder="assets/images/placeholder.png" mat-card-image src="{{ post.imageUrl }}" alt="Post image"
         class="post-card__image">
     <mat-card-content>
-        <p>{{ post.content | slice:0:maxCharacters }}</p>
+        <p>{{ post.content | sliceWithDots:maxBodyCharacters }}</p>
     </mat-card-content>
     <mat-card-actions>
         <button mat-icon-button><mat-icon>favorite</mat-icon></button>
