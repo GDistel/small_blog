@@ -5,6 +5,7 @@ import { filter, first } from 'rxjs';
 import { SnackbarService } from '../core/snackbar.service';
 import { PostsService } from '../core/posts.service';
 import { Post } from '../shared/interfaces';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-editor',
@@ -17,7 +18,10 @@ export class PostEditorComponent implements OnInit {
   content!: string;
   id!: number;
   isNew = false;
+  imageFile: File | undefined;
+  uploadProgress!: number;
   @ViewChild('postForm') postForm!: NgForm;
+  @ViewChild('fileUpload') fileUploadInput!: HTMLInputElement;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -46,17 +50,25 @@ export class PostEditorComponent implements OnInit {
 
   private resetForm(): void {
     this.postForm.resetForm();
+    this.imageFile = undefined;
+    this.fileUploadInput.value = '';
     this.cdr.detectChanges();
   }
 
   private createPost(post: Partial<Post>): void {
     
-    this.postsSvc.createPost(post)
+    this.postsSvc.createPost(post, this.imageFile)
       .subscribe({
-        next: post => {
-          this.postsSvc.setSelectedPost(post);
-          this.snackbarSvc.showBasicMessage('Post successfully created');
-          this.resetForm();
+        next: event => {
+          if (event.type == HttpEventType.UploadProgress && event.total) {
+            this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+            return;
+          }
+          if (event.type === HttpEventType.Response) {
+            this.postsSvc.setSelectedPost(event.body as Post);
+            this.snackbarSvc.showBasicMessage('Post successfully created');
+            this.resetForm();
+          }
         }
       });
   }
@@ -83,6 +95,10 @@ export class PostEditorComponent implements OnInit {
     } else {
       this.updatePost(postData);
     }
+  }
+
+  onFileSelected(file: File): void {
+    this.imageFile = file;
   }
 
 }

@@ -11,6 +11,18 @@
             matInput type="title" [(ngModel)]="title" name="title"
             class="post-editor__post-form_input" required>
     </mat-form-field>
+    <mat-slide-toggle #isRandomImage checked class="post-editor__post-form_random-image-toggle">
+        Use random image from Unsplash
+    </mat-slide-toggle>
+    <ng-container *ngIf="!isRandomImage.checked">
+        <button mat-mini-fab color="accent" type="button" (click)="fileUpload.click()"
+            class="post-editor__post-form_attach-image">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+        <p class="post-editor__post-form_attached-image-name">
+            &nbsp;&nbsp;{{ imageFile?.name ?? 'No image uploaded yet (supported images: .png)'}}
+        </p>
+    </ng-container>
     <mat-form-field class="post-editor__post-form_field" color="accent">
         <mat-label>Content</mat-label>
         <textarea
@@ -18,8 +30,12 @@
             class="post-editor__post-form_input" required>
         </textarea>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" [disabled]="!postForm.valid">
+    <button mat-raised-button color="accent" type="submit" [disabled]="!postForm.valid" class="post-editor__post-form_submit-button">
         Submit post
     </button>
 </form>
-<p class="note">(Note: images assigned randomly through Unsplash API)</p>
+
+<!-- Native input for image -->
+<input
+    #fileUpload type="file" style="display: none" accept="image/png"
+    (change)="onFileSelected($any($event.target).files[0])" />

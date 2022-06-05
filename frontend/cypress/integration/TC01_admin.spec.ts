@@ -21,13 +21,13 @@ describe('The admin interface', () => {
       .should('contain.text', POST_TITLE);
     cy.get('.admin-posts-list__edit-post').first().click();
     cy.url().should('include', 'post-editor');
-    cy.get('input').should('contain.value', POST_TITLE);
+    cy.get('.post-editor__post-form_input').first().should('contain.value', POST_TITLE);
     cy.get('textarea').should('have.value', POST_CONTENT);
-    cy.get('input').type(' [UPDATED]');
-    cy.get('button[mat-raised-button]').contains('Submit post').click();
+    cy.get('.post-editor__post-form_input').first().type(' [UPDATED]');
+    cy.get('.post-editor__post-form_submit-button').contains('Submit post').click();
     cy.get('.mat-simple-snack-bar-content')
       .should('have.text', getSuccessMessageForPostAction('updated'));
-    cy.get('input').should('contain.value', `${POST_TITLE} [UPDATED]`);
+    cy.get('.post-editor__post-form_input').first().should('contain.value', `${POST_TITLE} [UPDATED]`);
   });
 
   it('should allow the admin to successfully delete a post', () => {

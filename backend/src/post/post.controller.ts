@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as multer from 'multer';
 import { AppDataSource } from '../data-source';
 import PostNotFoundException from '../exceptions/PostNotFoundException';
 import Controller from '../interfaces/controller.interface';
@@ -8,6 +9,11 @@ import Post from './post.entity';
 import Comment from '../comment/comment.entity';
 import CreateCommentDto from '../comment/comment.dto';
 import { Pagination } from '../utils/pagination';
+
+const DISK_STORAGE = multer.diskStorage({
+  destination: (req, file, callback) => callback(null, 'src/uploads', ),
+  filename: (req, file, callback) => callback(null, `${new Date().toISOString()}-${file.originalname}`)
+});
 
 class PostController implements Controller {
   public path = '/posts';
@@ -27,7 +33,12 @@ class PostController implements Controller {
       .all(`${this.path}/*`)
       .patch(`${this.path}/:id`, validationMiddleware(CreatePostDto, true), this.modifyPost)
       .delete(`${this.path}/:id`, this.deletePost)
-      .post(this.path, validationMiddleware(CreatePostDto), this.createPost);
+      .post(
+        this.path,
+        multer({ storage: DISK_STORAGE }).single('image'),
+        validationMiddleware(CreatePostDto),
+        this.createPost
+      );
   }
 
   private createPostComment = async (request: express.Request, response: express.Response) => {
@@ -43,6 +54,9 @@ class PostController implements Controller {
 
   private createPost = async (request: express.Request, response: express.Response) => {
     const postData: CreatePostDto = request.body;
+    if (request.file) {
+      postData.imageUrl = `http://localhost:${process.env.PORT}/${request.file.filename}`;
+    }
     const newPost = this.postRepository.create({
       ...postData
     });

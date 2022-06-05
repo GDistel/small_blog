@@ -24,6 +24,21 @@
             padding: 16px;
         }
 
+        &_random-image-toggle {
+            display: block;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        &_attach-image {
+            margin-bottom: 16px;
+        }
+
+        &_attached-image-name {
+            color: white;
+            display: inline;
+        }
+
         &_field {
             display: block;
         }
@@ -32,9 +47,4 @@
             color: white;
         }
     }
-}
-
-.note {
-    width: 100%;
-    text-align: center;
 }

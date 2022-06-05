@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpParamsOptions } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { PagedResponse, Post } from '../shared/interfaces';
-import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Comment } from '../shared/interfaces';
 import { SnackbarService } from './snackbar.service';
 
@@ -66,12 +66,22 @@ export class PostsService {
       );
   }
 
-  createPost(postData: Partial<Post>): Observable<Post> | never {
+  createPost(postData: Partial<Post>, imageFile?: File): Observable<HttpEvent<Post>> | never {
     if (!postData) {
       this.snackbarSvc.showBasicMessage('Post data is missing', true);
       throw new Error('Missing post data');  
     }
-    return this.httpClient.post<Post>(`${API_URL}/posts`, postData);
+    const formData = new FormData();
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+    formData.append('title', postData.title as string);
+    formData.append('content', postData.content as string);
+    formData.append('imageUrl', postData.imageUrl as string);
+    return this.httpClient.post<Post>(`${API_URL}/posts`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
   createPostComment(postId: string, comment: Comment): Observable<Comment> | never {
